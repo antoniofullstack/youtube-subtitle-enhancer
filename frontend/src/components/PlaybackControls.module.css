@@ -88,3 +88,9 @@
 .playBtn:active {
   transform: scale(0.95);
 }
+
+@media (min-width: 768px) {
+  .controls {
+    padding: 8px 0 12px;
+  }
+}

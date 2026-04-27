@@ -16,6 +16,25 @@
   background: var(--bg-primary);
 }
 
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.leftPanel {
+  display: flex;
+  flex-direction: column;
+}
+
+.rightPanel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
 .tabs {
   display: flex;
   gap: 0;
@@ -97,4 +116,56 @@
   color: var(--text-secondary);
   max-width: 280px;
   line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+  .app {
+    max-width: 1200px;
+  }
+
+  .header {
+    padding: 16px 24px;
+  }
+
+  .mainContent {
+    flex-direction: row;
+    gap: 24px;
+    padding: 0 24px;
+  }
+
+  .leftPanel {
+    width: 55%;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+  }
+
+  .rightPanel {
+    width: 45%;
+    min-height: 0;
+  }
+
+  .videoSection {
+    padding: 0;
+    margin-bottom: 8px;
+  }
+
+  .tabs {
+    padding: 0;
+    margin-bottom: 12px;
+  }
+
+  .error {
+    margin: 12px 24px;
+  }
+
+  .welcome h2 {
+    font-size: 24px;
+  }
+
+  .welcome p {
+    font-size: 16px;
+    max-width: 400px;
+  }
 }
