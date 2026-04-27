@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "API for fetching and processing YouTube subtitles"
 requires-python = ">=3.10"
 dependencies = [
-    "fastapi>=0.104.0",
+    "fastapi[standard]>=0.104.0",
     "uvicorn[standard]>=0.24.0",
     "youtube-transcript-api>=0.6.1",
     "yt-dlp>=2024.1.0",
