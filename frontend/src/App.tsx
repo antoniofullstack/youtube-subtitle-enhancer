@@ -5,6 +5,7 @@ import SubtitleList from "./components/SubtitleList";
 import WordList from "./components/WordList";
 import PlaybackControls from "./components/PlaybackControls";
 import { fetchVideo } from "./services/api";
+import { fetchSubtitlesClientSide } from "./services/clientSubtitles";
 import type { VideoData } from "./types";
 import styles from "./App.module.css";
 
@@ -25,9 +26,26 @@ export default function App() {
     setError(null);
     try {
       const data = await fetchVideo(url);
+
+      // If server couldn't fetch subtitles, try client-side
+      if (data.subtitles.length === 0) {
+        try {
+          const clientSubs = await fetchSubtitlesClientSide(data.video_id);
+          if (clientSubs.length > 0) {
+            data.subtitles = clientSubs;
+          }
+        } catch {
+          // Client-side fetch failed too, continue without subtitles
+        }
+      }
+
       setVideoData(data);
       setCurrentTime(0);
       setPlaying(false);
+
+      if (data.subtitles.length === 0) {
+        setError("Legendas não encontradas para este vídeo. O vídeo pode não ter legendas disponíveis.");
+      }
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Falha ao buscar legendas";
       setError(message);

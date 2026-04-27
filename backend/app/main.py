@@ -1,7 +1,13 @@
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Body
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
-from app.subtitles import fetch_subtitles, fetch_video_info
+from app.subtitles import (
+    fetch_subtitles,
+    fetch_video_info,
+    extract_video_id,
+    process_raw_subtitles,
+)
 from app.models import VideoResponse, SubtitleSegment
 
 app = FastAPI(title="YouTube Subtitles API", version="0.1.0")
@@ -31,6 +37,15 @@ async def get_video(url: str = Query(..., description="YouTube video URL or ID")
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to fetch video: {str(e)}")
+
+
+class ProcessSubtitlesRequest(BaseModel):
+    subtitles: list[dict]
+
+
+@app.post("/api/process-subtitles", response_model=list[SubtitleSegment])
+async def process_subtitles(body: ProcessSubtitlesRequest):
+    return process_raw_subtitles(body.subtitles)
 
 
 @app.get("/api/health")
