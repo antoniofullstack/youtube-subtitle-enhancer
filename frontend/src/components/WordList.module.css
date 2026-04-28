@@ -41,3 +41,9 @@
 .word.past {
   color: var(--text-muted);
 }
+
+@media (min-width: 768px) {
+  .wordContainer {
+    padding: 24px;
+  }
+}

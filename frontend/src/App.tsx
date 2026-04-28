@@ -111,70 +111,66 @@ export default function App() {
       )}
 
       {videoData && (
-        <div className={styles.mainContent}>
-          <div className={styles.leftPanel}>
-            <div className={styles.videoSection}>
-              <VideoPlayer
-                videoId={videoData.video_id}
-                playing={playing}
-                onTogglePlay={handleTogglePlay}
-                onProgress={handleProgress}
-                onDuration={handleDuration}
-                seekTo={seekTo}
-                onSeekComplete={handleSeekComplete}
-              />
-            </div>
+        <>
+          <div className={styles.tabs}>
+            <button
+              className={`${styles.tab} ${activeTab === "subtitles" ? styles.tabActive : ""}`}
+              onClick={() => setActiveTab("subtitles")}
+            >
+              Subtitles
+            </button>
+            <button
+              className={`${styles.tab} ${activeTab === "words" ? styles.tabActive : ""}`}
+              onClick={() => setActiveTab("words")}
+            >
+              Words
+            </button>
+          </div>
 
-            <PlaybackControls
+          <div className={styles.videoSection}>
+            <VideoPlayer
+              videoId={videoData.video_id}
               playing={playing}
-              currentTime={currentTime}
-              duration={duration}
               onTogglePlay={handleTogglePlay}
-              onSeek={handleSeek}
-              onSkipBack={handleSkipBack}
-              onSkipForward={handleSkipForward}
+              onProgress={handleProgress}
+              onDuration={handleDuration}
+              seekTo={seekTo}
+              onSeekComplete={handleSeekComplete}
             />
           </div>
 
-          <div className={styles.rightPanel}>
-            <div className={styles.tabs}>
-              <button
-                className={`${styles.tab} ${activeTab === "subtitles" ? styles.tabActive : ""}`}
-                onClick={() => setActiveTab("subtitles")}
-              >
-                Subtitles
-              </button>
-              <button
-                className={`${styles.tab} ${activeTab === "words" ? styles.tabActive : ""}`}
-                onClick={() => setActiveTab("words")}
-              >
-                Words
-              </button>
-            </div>
-
-            <div className={styles.contentArea}>
-              {activeTab === "subtitles" ? (
-                <SubtitleList
-                  subtitles={videoData.subtitles}
-                  currentTime={currentTime}
-                  onSeek={(time) => {
-                    handleSeek(time);
-                    setPlaying(true);
-                  }}
-                />
-              ) : (
-                <WordList
-                  subtitles={videoData.subtitles}
-                  currentTime={currentTime}
-                  onSeek={(time) => {
-                    handleSeek(time);
-                    setPlaying(true);
-                  }}
-                />
-              )}
-            </div>
+          <div className={styles.contentArea}>
+            {activeTab === "subtitles" ? (
+              <SubtitleList
+                subtitles={videoData.subtitles}
+                currentTime={currentTime}
+                onSeek={(time) => {
+                  handleSeek(time);
+                  setPlaying(true);
+                }}
+              />
+            ) : (
+              <WordList
+                subtitles={videoData.subtitles}
+                currentTime={currentTime}
+                onSeek={(time) => {
+                  handleSeek(time);
+                  setPlaying(true);
+                }}
+              />
+            )}
           </div>
-        </div>
+
+          <PlaybackControls
+            playing={playing}
+            currentTime={currentTime}
+            duration={duration}
+            onTogglePlay={handleTogglePlay}
+            onSeek={handleSeek}
+            onSkipBack={handleSkipBack}
+            onSkipForward={handleSkipForward}
+          />
+        </>
       )}
     </div>
   );

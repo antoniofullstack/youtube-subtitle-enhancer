@@ -56,3 +56,9 @@
 .active .text {
   font-weight: 600;
 }
+
+@media (min-width: 768px) {
+  .list {
+    padding: 0 24px 24px;
+  }
+}
