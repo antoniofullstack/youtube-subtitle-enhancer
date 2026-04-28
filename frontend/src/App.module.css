@@ -98,3 +98,34 @@
   max-width: 280px;
   line-height: 1.5;
 }
+
+@media (min-width: 768px) {
+  .app {
+    max-width: 800px;
+  }
+
+  .header {
+    padding: 16px 24px;
+  }
+
+  .videoSection {
+    padding: 0 24px;
+  }
+
+  .tabs {
+    padding: 0 24px;
+  }
+
+  .error {
+    margin: 12px 24px;
+  }
+
+  .welcome h2 {
+    font-size: 24px;
+  }
+
+  .welcome p {
+    font-size: 16px;
+    max-width: 400px;
+  }
+}
